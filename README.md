@@ -17,7 +17,7 @@ This is essentially a tool, so the best way to use it is by cloning the reposito
 
 You'll need to provide a built react project in a "dist" folder in the root from the directory. More information about this below...
 
-If you need to pack a project scroll to the bottom of this README.
+If you need to package a project scroll to the bottom of this README.
 
 ### Get the repository to your local workspace
 
@@ -29,13 +29,8 @@ Then run the packages installation command:
 ```bash
 $ npm install
 ```
-Finally, run the server locally with the following command:
-```bash
-$ node server.js
-```
-The project will be running at the 3000 port, so you will have to type [`localhost:3000`](http://localhost:3000) on your web browser or go there by clicking the marked link.
 
-### What's next?
+#### Provide a project
 
 As mentioned earlier, you’ll need a built React project inside a `dist` folder.  
 
@@ -62,50 +57,46 @@ this-project/
 
 Your actual files may vary, just make sure they stay inside `dist`.
 
-Aditionaly in server.js file you can change the expose port in case you could need it, it is set to port 3000 by default. if you change it REMEMBER to change it in Dockerfile too (just in case you wanted to pack it).
+Aditionaly in server.js file you can change the expose port in case you could need it, it is set to port 3000 by default. if you change it REMEMBER to change it in Dockerfile too (just in case you wanted to package it).
 
 `server.js`:
 ```javascript
-const express = require('express');
-const path = require('path');
-const app = express();
-const port = 3000; // <--- CHANGE IT HERE
-
-app.use(express.static(path.join(__dirname, 'dist')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
-app.listen(port, () => {
-    console.log(`Server is running at port ${port}`);
-});
+4. const port = 3000; // <--- CHANGE IT HERE
 ```
+
 `Dockerfile`:
-```dockerfile
-FROM node:16-alpine
-WORKDIR /app
-COPY . .
-RUN npm install
-EXPOSE 3000 # <--- CHANGE IT HERE
-CMD ["node","server.js"]
+```docker
+5. EXPOSE 3000 # <--- CHANGE IT HERE
 ```
+
+#### Ready to run
+
+Finally, run the server locally with the following command:
+```bash
+$ node server.js
+```
+
+The project will be running at the `3000` port by default (if you not change it), so you will have to type [`localhost:3000`](http://localhost:3000) on your web browser or go there by clicking the marked link.
 
 ### Dockerize
 
-If you need a packed project to show to your clients, co-workers, students, friends, etc., here is how you can do it.
+If you need a packaged project to show to your clients, co-workers, students, friends, etc., here is how you can do it.
 
 I´ll assume you already install Docker, now you have to open a terminal that points to the root directory of the project,
-there you need to use the following command (in case you don't know much about Docker, I recommend you to read the command's description):
+there you need to use the following command (in case you don't know much about Docker, I recommend you to read the command's description bellow):
+
 ```bash
 $ docker build -t custom-name:custom-tag .
 ```
+
+After this the terminal will show some details about the process, just wait until it finishes.
+
+#### Command's Decription
+
 `-t`: it means `--tag`, allows us to write a name and optionally a tag for the Docker image that we´re building.  
 `custom-name`: if you use `-t` you'll have to write a name for your image, use one that could be easily remembered.  
 `custom-tag`: this one is optional, the tag of a Docker image is usually used to differentiate its versions, if you're sure this will be the only version of your image, you can skip it, just make sure to delete the `:` symbol after the image name.  
-`.`: this dot is used to specify where the Dockerfile is, relative to the current terminal path.
-
-After this the terminal will show some details about the process, just wait until it finishes.
+`.`: this dot is used to specify where the Dockerfile is, relative to the current terminal path.  
 
 #### Use your image
 
@@ -116,8 +107,8 @@ Run the following command:
 $ docker run --name custom-name -p 3000:3000 -d image-name
 ```
 `--name`: Allows us to specify a `custom-name` to our container, make sure it is one you can remember, but it is essentially optional.  
-`-p`: This is required, as you need to specify a port that allows us to communicate with the container.
-`3000:3000`: The first one is which port we will be able to use to connect from OUTSIDE of the container, this one is relatively optional (in wich number to use), just make sure it is a available (not used by others applications). The second one is the one we setted up before we built the image, if you didn't change anything then it is the port `3000`.
+`-p`: This is required, as you need to specify a port that allows us to communicate with the container.  
+`3000:3000`: The first one is which port we will be able to use to connect from OUTSIDE of the container, this one is relatively optional (in wich number to use), just make sure it is available (not currently used by others applications). The second one is the one we setted up before we built the image, if you didn't change anything then it is the port `3000`.  
 
 After that and if we didn't have any issues, the terminal will respond with a generated container ID. Additionally the `run` command will immediatly start our container.
 
