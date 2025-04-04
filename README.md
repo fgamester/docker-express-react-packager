@@ -40,7 +40,7 @@ As mentioned earlier, you’ll need a built React project inside a `dist` folder
 
 First of all create a `dist` folder at the root directory of the project or copy it from your own project, but ensure that is in the main directory. Something like this:
 
-```
+```plaintext
 this-project/  
 ├── dist/  
 │   ├── index.html
@@ -66,7 +66,7 @@ Aditionaly in `server.js` file you can change the expose port in case you could 
 
 `server.js`:
 ```javascript
-1. const port = 3000; // <--- CHANGE IT HERE
+4. const port = 3000; // <--- CHANGE IT HERE
 ```
 
 `Dockerfile`:

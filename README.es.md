@@ -4,7 +4,7 @@
 
 Hola a todos👋🏼👋🏼👋🏼  
 
-Hace unos días quise repasar un poco de Docker, esa mágica herramienta que nos permite empaquetar nuestro proyectos y facilitar bastante la forma de compartirlos sin que las demás personas tengan que instalar incontables dependencias o perdiendo tiempo configurando entornos. El problema es que los proyectos empaquetados en estado de desarrollo pesan demasiado y a veces requieren de muchos ajustes, entonces pensé en desarrollar un servidor simple en express que me permita empaquetar proyectos de React ya construidos.
+Hace unos días quise repasar un poco de Docker, esa mágica herramienta que nos permite empaquetar nuestros proyectos y facilitar bastante la forma de compartirlos sin que las demás personas tengan que instalar incontables dependencias o perdiendo tiempo configurando entornos. El problema es que los proyectos empaquetados en estado de desarrollo pesan demasiado y a veces requieren de muchos ajustes, entonces pensé en desarrollar un servidor simple en express que me permita empaquetar proyectos de React ya construidos.
 
 Solo menciono React por como funciona, una página estática que renderiza contenido según la ruta y otras condicionales, entonces los ajustes del servidor son bastante fáciles para el conocimiento que manejo actualmente.
 
@@ -40,7 +40,7 @@ Como mencioné antes, necesitarás un proyecto de React ya construido dentro de 
 
 Primero crea la carpeta `dist` en el directorio raíz o copialo desde tu mismo proyecto, pero asegurándote de que quede en el directorio principal. Algo como esto:
 
-```
+```plaintext
 este-proyecto/  
 ├── dist/  
 │   ├── index.html
@@ -66,7 +66,7 @@ Adicionalmente en el archivo `server.js` puedes cambiar el puerto expuesto en ca
 
 `server.js`:
 ```javascript
-1. const port = 3000; // <--- CAMBIALO AQUÍ
+4. const port = 3000; // <--- CAMBIALO AQUÍ
 ```
 
 `Dockerfile`:
@@ -97,10 +97,10 @@ Después de esto la terminal mostrará unos detalles del proceso, solo espera a 
 
 #### Descripción del comando
 
-`-t`: significa `--tag` (etiqueta), nos permite escribir un nombre y opcionalmente una etiqueta para la imagen de docker que estamos construyendo.  
-`custom-name`: si usas `-t` tendrás que proporcionar un nombre para tu imagen, usa uno que sea fácil de recordar.  
-`custom-tag`: esto es opcional, las etiquetas de una imagen de Docker usualmente son utilizadas para distinguir versiones de esta. Si estás seguro que será la única versión de tu imagen, puedes omitirlo, pero asegúrate de eliminar el símbolo `:` después del nombre de la imagen.  
-`.`: este punto es usado para especificar en donde se encuantra `Dockerfile`, relativo a la ruta actual de tu terminal.  
+`-t`: Significa `--tag` (etiqueta), nos permite escribir un nombre y opcionalmente una etiqueta para la imagen de docker que estamos construyendo.  
+`custom-name`: Si usas `-t` tendrás que proporcionar un nombre para tu imagen, usa uno que sea fácil de recordar.  
+`custom-tag`: Esto es opcional, las etiquetas de una imagen de Docker usualmente son utilizadas para distinguir versiones de esta. Si estás seguro que será la única versión de tu imagen, puedes omitirlo, pero asegúrate de eliminar el símbolo `:` después del nombre de la imagen.  
+`.`: Este punto es usado para especificar en donde se encuentra `Dockerfile`, relativo a la ruta actual de tu terminal.  
 
 #### Usa tu imagen
 
@@ -110,9 +110,9 @@ Ejecuta el siguiente comando:
 ```bash
 $ docker run --name <nombre-personalizado> -p <3000:3000> -d <nombre-imagen>
 ```
-`--name`: nos permite especificar un `nombre-personalizado` para nuestro contenedor, de preferencia uno fácil de recordar, pero es esencialmente opcional.
+`--name`: Nos permite especificar un `nombre-personalizado` para nuestro contenedor, de preferencia uno fácil de recordar, pero es esencialmente opcional.
 
-`-p`: esto es requerido, ya que necesitamos especificar un puerto que permita comunicarnos con nuestro contenedor.
+`-p`: Esto es requerido, ya que necesitamos especificar un puerto que permita comunicarnos con nuestro contenedor.
 
 `3000:3000`: El primero es el puerto por el cuál podremos conectarnos desde FUERA del contenedor, es relativamente opcional (en cuanto a que número usar), solo debes asegurarte que sea uno que se encuentre disponible (no utilizado actualmente por otras aplicaciones). El segundo es el que especificamos antes de construir la imagen, si no cambiaste nada entonces es el puerto `3000`.
 
